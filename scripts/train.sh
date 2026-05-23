@@ -5,7 +5,7 @@ MODEL_PATH=   # models/Qwen3-8B # set your model path here
 WORK_DIR=long_history_profile # set your work directory here, absolute path recommended
 cd $WORK_DIR
 
-BASE_LOG_PATH="logs/training" #set your log path here
+BASE_LOG_PATH="/logs/training" #set your log path here
 START_IDX=0
 EPOCH=1
 
@@ -23,12 +23,10 @@ mkdir -p "$SAVE_DIR" "$VALIDATION_PATH" "$ROLLOUT_DATA_DIR"
 
 cd verl
 
-cd verl
 export WANDB_API_KEY=   # your wandb api key here
-export WANDB_ENTITY   # your wandb entity here
+export WANDB_ENTITY=   # your wandb entity here
 
 TRAIN_PATH=   # set your train path here 
-TEST_PATH=   # set your test path here, not used in current code but set for safety
 
 # ============ util ============
 get_max_global_step () {
@@ -69,7 +67,7 @@ while true; do
         data.custom_cls.path=$WORK_DIR/verl/verl/utils/dataset/profile_dataset_v2.py \
         data.custom_cls.name=MultiTurnUserHistoryDataset \
         +data.train_path=$TRAIN_PATH \
-        +data.test_path=$TEST_PATH \
+        +data.test_path=$TRAIN_PATH \
         +data.start_idx=$START_IDX \
         +data.episode_step_size=10 \
         +data.prev_validation_data_dir="$VALIDATION_PATH" \
@@ -110,7 +108,7 @@ while true; do
         actor_rollout_ref.rollout.n=8 \
         actor_rollout_ref.ref.fsdp_config.param_offload=True \
         algorithm.use_kl_in_reward=False \
-        +trainer.trainer_cls=verl.trainer.ppo.ray_trainer.RayPPOTrainer \
+        +trainer.trainer_cls=verl.trainer.ppo.my_ray_trainer_v2.LSTMRayPPOTrainer \
         trainer.default_local_dir=$SAVE_DIR \
         trainer.validation_data_dir=$VALIDATION_PATH \
         trainer.rollout_data_dir=$ROLLOUT_DATA_DIR \

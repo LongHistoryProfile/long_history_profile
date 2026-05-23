@@ -233,7 +233,7 @@ class MultiTurnUserHistoryDataset(Dataset):
                     raw_prompt_ids = raw_prompt_ids[:left_half] + raw_prompt_ids[-right_half:]
                 elif truncation == "error":
                     raise RuntimeError(
-                        f"Prompt length {len(raw_prompt_ids)} is longer than {self.max_prompt_length}."
+                        f"Prompt length {len(raw_prompt_ids)} is longer than {max_prompt_length}."
                     )  
             samples[id]["input_ids"]=input_ids[0]
             samples[id]["attention_mask"]=attention_mask[0]

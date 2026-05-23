@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/aiscuser/yifeisun/project_1128/verl")
+# sys.path.append("/verl") # absolute path here for ensuring running
 from prompt_config import (
     PROFILE_CONTROLLER_RATING_SYSTEM_PROMPT,
     PROFILE_CONTROLLER_RATING_PREDICTOR_PROMPT
